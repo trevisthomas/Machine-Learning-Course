@@ -7,7 +7,7 @@ function [J, grad] = costFunction(theta, X, y)
 % Initialize some useful values
 m = length(y); % number of training examples
 
-% You need to return the following variables correctly 
+% You need to return the following variables correctly
 J = 0;
 grad = zeros(size(theta));
 
@@ -20,11 +20,15 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+h = sigmoid(X * theta);
+J = 1/m * (-y' * log(h) - (1 - y)' * log(1 - h));
 
-
-
-
-
+% //TREVIS! The actual equation says that you do a summation, but when you're dealing
+% //with the matricies you dont have to!
+% this is wrong
+% grad = 1/m * (sum(sigmoid(X * theta)' - y) * X)
+% this is right. The vector product of (h - y') * X computes the sum.
+grad = 1/m * ((h' - y') * X);
 
 
 % =============================================================
